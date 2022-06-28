@@ -14,6 +14,15 @@ export async function signUp(userData) {
     return getUser()
 }
 
+
+export async function login(credentials){
+    //this needs to check if the email and password matches one in the db
+    const token = await usersAPI.login(credentials)
+    localStorage.setItem('token', token)
+    return getUser()
+}
+
+
 export function getToken() {
     //get item that returns null if there is no string
     const token = localStorage.getItem('token')
@@ -29,9 +38,22 @@ export function getToken() {
 
 }
 
+export function checkToken(){
+   // Just so that you don't forget how to use .then
+  return usersAPI.checkToken()
+  // checkToken returns a string, but let's 
+  // make it a Date object for more flexibility
+  .then(dateStr => new Date(dateStr));
+}
+
 export function getUser() {
     const token = getToken()
     //if there is a token, return the user in the payload, otherwise return null
     return token ? JSON.parse(atob(token.split('.')[1])).user : null
 
 }
+
+export function logOut(){
+    localStorage.removeItem('token')
+}
+
