@@ -9,7 +9,7 @@ export default function OrderHistoryPage() {
     return (
       <>
         <h1>OrderHistoryPage</h1>
-        <button onClick={handleCheckToken}>button</button>
+        <button onClick={handleCheckToken}>console log date and time</button>
         </>
     );
   }
